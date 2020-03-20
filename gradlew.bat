@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Doctroid</string>
+    <string name="copy_rights">All Rights Reserved © 2019 Doctroid</string>
+
+    <string name="next">"Next"</string>
+    <string name="welcome">"Welcome"</string>
+    <string name="logout">"LOGOUT"</string>
+    <string name="start">Got it</string>
+    <string name="slide_1_title">On Touch</string>
+    <string name="slide_1_desc">Stay on one touch with O6U doctors and updated medical analysis.</string>
+    <string name="slide_2_title">Explore</string>
+    <string name="slide_2_desc">Explore many feature around the hospital on one tap.</string>
+    <string name="slide_3_title">"Don't miss"</string>
+    <string name="slide_3_desc">"Don't miss anything! your medical CV is ready for you anywhere, anytime."</string>
+    <string name="sign_in">"Sign in</string>
+    <string name="image_icon">image_icon</string>
+    <string name="first_name_required">First name is required</string>
+    <string name="last_name_required">Last name is required</string>
+    <string name="email_not_valid">Enter valid Email</string>
+    <string name="email_required">Email is required</string>
+    <string name="phone_required">Phone number is required</string>
+    <string name="phone_not_valid">Enter valid phone number</string>
+    <string name="password_not_valid">Enter valid Password</string>
+    <string name="email_and_password_not_valid">"Email/Password not valid"</string>
+    <string name="password_required">Password is required</string>
+    <string name="confirm_password_required">Confirm password</string>
+    <string name="password_not_matched">Passwords don\'t matched</string>
+    <string name="request_error">Request error, please try again.</string>
+    <string name="something_wrong">Something went wrong, please try again.</string>
+    <string name="no_internet_connection">No internet connection!</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="loading">Loading&#8230;</string>
+    <string name="email">"&#8230; Email: "</string>
+    <string name="down_arrow">scroll down for more suggestion &#9660;</string>
+    <string name="Forgot_Password">Forgot Password</string>
+    <string name="reset_link">We j

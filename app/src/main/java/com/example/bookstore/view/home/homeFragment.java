@@ -1,6 +1,5 @@
 package com.example.bookstore.view.home;
 
-import android.app.Service;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,10 @@ import android.widget.Toast;
 
 import com.example.bookstore.R;
 import com.example.bookstore.network.api.APIClient;
+import com.example.bookstore.network.models.Book;
 import com.example.bookstore.network.services.APIService;
+import com.example.bookstore.view.home.Books.BooksAdapter;
+import com.example.bookstore.view.home.slider.sliderAdapter;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,8 +35,10 @@ import retrofit2.Response;
 public class homeFragment extends Fragment {
 
     private RecyclerView recyclerViewSlider;
+    private RecyclerView recyclerViewBooks;
     private APIService  apiService;
     private sliderAdapter sliderAdapter;
+    private BooksAdapter  booksAdapter;
     private NavController navController;
 
     public homeFragment() {
@@ -47,8 +51,10 @@ public class homeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_home, container, false);
+        apiService= APIClient.getClient().create(APIService.class);
         initUI(view);
         LoadSlider();
+        getBooks();
         return view;
     }
 
@@ -61,14 +67,11 @@ public class homeFragment extends Fragment {
     private void initUI(View view)
     {
         recyclerViewSlider=view.findViewById(R.id.homeRecyclerViewSlider);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
-        recyclerViewSlider.setLayoutManager(linearLayoutManager);
-
+        recyclerViewBooks=view.findViewById(R.id.home_books_recyclerView);
     }
 
     private void LoadSlider(){
 
-        apiService= APIClient.getClient().create(APIService.class);
         apiService.getSlider().enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
@@ -97,4 +100,37 @@ public class homeFragment extends Fragment {
         recyclerViewSlider.setAdapter(sliderAdapter);
 
     }
+
+    private void getBooks()
+    {
+        apiService.getBooks().enqueue(new Callback<List<Book>>() {
+            @Override
+            public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                if (response.isSuccessful()) {
+                    setupBooks(response.body());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Book>> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+    private void setupBooks(List<Book> book)
+    {
+        booksAdapter=new BooksAdapter(book);
+        LinearLayoutManager linearLayout=new LinearLayoutManager(Objects.requireNonNull(getActivity())
+                .getApplicationContext(),
+                LinearLayoutManager.HORIZONTAL
+                ,false);
+
+        recyclerViewBooks.setLayoutManager(linearLayout);
+        recyclerViewBooks.setAdapter(booksAdapter);
+
+    }
+
+
 }

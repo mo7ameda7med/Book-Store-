@@ -1,4 +1,4 @@
-package com.example.bookstore.view.home;
+package com.example.bookstore.view.home.slider;
 
 import android.view.View;
 import android.widget.ImageView;

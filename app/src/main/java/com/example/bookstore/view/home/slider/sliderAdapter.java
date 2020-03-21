@@ -1,4 +1,4 @@
-package com.example.bookstore.view.home;
+package com.example.bookstore.view.home.slider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.bookstore.R;
+import com.example.bookstore.view.home.slider.sliderHolder;
 
 import java.util.List;
 

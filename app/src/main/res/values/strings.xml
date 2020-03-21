@@ -16,6 +16,9 @@
     <string name="email">Email</string>
     <string name="address">Address</string>
     <string name="password">Password</string>
-    <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+    <string name="slider_image">slider_Image</string>
+    <string name="book_store">Book Store</string>
+    <string name="featured">Featured</string>
+    <string name="see_all">See all</string>
 </resources>

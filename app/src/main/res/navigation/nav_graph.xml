@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.bookstore.view.home.homeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_featuredFragment"
+            app:destination="@id/featuredFragment" />
+    </fragment>
     <fragment
         android:id="@+id/booksFragment"
         android:name="com.example.bookstore.view.books.booksFragment"
@@ -20,5 +24,10 @@
         android:name="com.example.bookstore.view.sign.signFragment"
         android:label="fragment_sign"
         tools:layout="@layout/fragment_sign" />
+    <fragment
+        android:id="@+id/featuredFragment"
+        android:name="com.example.bookstore.view.featured.featuredFragment"
+        android:label="fragment_featured"
+        tools:layout="@layout/fragment_featured" />
 
 </navigation>

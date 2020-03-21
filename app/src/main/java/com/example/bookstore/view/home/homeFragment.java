@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.bookstore.R;
@@ -32,13 +33,14 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class homeFragment extends Fragment {
+public class homeFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerViewSlider;
     private RecyclerView recyclerViewBooks;
     private APIService  apiService;
     private sliderAdapter sliderAdapter;
     private BooksAdapter  booksAdapter;
+    private Button btnSeeAll;
     private NavController navController;
 
     public homeFragment() {
@@ -68,6 +70,8 @@ public class homeFragment extends Fragment {
     {
         recyclerViewSlider=view.findViewById(R.id.homeRecyclerViewSlider);
         recyclerViewBooks=view.findViewById(R.id.home_books_recyclerView);
+        btnSeeAll=view.findViewById(R.id.home_see_all_button);
+        btnSeeAll.setOnClickListener(this);
     }
 
     private void LoadSlider(){
@@ -133,4 +137,13 @@ public class homeFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.home_see_all_button:
+                navController.navigate(R.id.action_homeFragment_to_featuredFragment);
+                break;
+        }
+    }
 }

@@ -21,4 +21,7 @@
     <string name="data_structures_and_algorithms">Data Structures and Algorithms</string>
     <string name="_14_00">14.00 $</string>
     <string name="free">Free</string>
+    <string name="john_doe">John Doe</string>
+    <string name="open">Open</string>
+    <string name="image">image</string>
 </resources>

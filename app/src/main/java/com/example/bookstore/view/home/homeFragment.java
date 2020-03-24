@@ -20,6 +20,7 @@ import com.example.bookstore.R;
 import com.example.bookstore.network.api.APIClient;
 import com.example.bookstore.network.models.Book;
 import com.example.bookstore.network.services.APIService;
+import com.example.bookstore.view.home.Books.BookTypes;
 import com.example.bookstore.view.home.Books.BooksAdapter;
 import com.example.bookstore.view.home.slider.sliderAdapter;
 
@@ -125,7 +126,7 @@ public class homeFragment extends Fragment implements View.OnClickListener {
     }
     private void setupBooks(List<Book> book)
     {
-        booksAdapter=new BooksAdapter(book);
+        booksAdapter=new BooksAdapter(book, BookTypes.Home);
         LinearLayoutManager linearLayout=new LinearLayoutManager(Objects.requireNonNull(getActivity())
                 .getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL

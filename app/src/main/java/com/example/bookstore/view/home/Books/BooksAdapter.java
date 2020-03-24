@@ -14,16 +14,30 @@ import java.util.List;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksHolder> {
     private List<Book>books;
+    public BookTypes bookTypes;
 
-    public BooksAdapter(List<Book> books) {
+    public BooksAdapter(List<Book> books, BookTypes bookTypes) {
         this.books = books;
+        this.bookTypes = bookTypes;
     }
 
     @NonNull
     @Override
     public BooksHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.ietm_books,parent,false);
-        return new BooksHolder(v);
+
+        int Layout =0;
+        switch (bookTypes)
+        {
+            case Home:
+               Layout= R.layout.ietm_books;
+            break;
+            case Featured:
+            case MY_Books:
+               Layout= R.layout.item_book_land;
+                break;
+        }
+        View v= LayoutInflater.from(parent.getContext()).inflate(Layout,parent,false);
+        return new BooksHolder(v,bookTypes);
     }
 
     @Override

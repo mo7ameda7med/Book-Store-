@@ -2,6 +2,7 @@ package com.example.bookstore.view.home.Books;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,9 +20,15 @@ public class BooksHolder extends RecyclerView.ViewHolder {
     private TextView tvFree;
     private View tvHasDiscount;
 
+    //feature
+    private RatingBar ratingBar;
 
-    public BooksHolder(@NonNull View itemView) {
+    private BookTypes bookTypes;
+
+
+    public BooksHolder(@NonNull View itemView ,BookTypes bookTypes) {
         super(itemView);
+        this.bookTypes=bookTypes;
         initView(itemView);
     }
 
@@ -33,6 +40,11 @@ public class BooksHolder extends RecyclerView.ViewHolder {
         tvOldPrice=view.findViewById(R.id.book_old_price_textView);
         tvFree=view.findViewById(R.id.book_free_textView);
         tvHasDiscount=view.findViewById(R.id.has_discount_group);
+
+        if(bookTypes==BookTypes.Featured)
+        {
+            ratingBar=view.findViewById(R.id.book_ratingBar);
+        }
     }
      void BindV(Book book)
     {
@@ -69,6 +81,10 @@ public class BooksHolder extends RecyclerView.ViewHolder {
             }
         }
 
+        if(bookTypes==BookTypes.Featured)
+        {
+            ratingBar.setRating(book.getRating());
+        }
     }
 
 

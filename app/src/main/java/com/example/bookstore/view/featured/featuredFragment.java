@@ -2,7 +2,11 @@ package com.example.bookstore.view.featured;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +19,7 @@ import com.example.bookstore.R;
 import com.example.bookstore.network.api.APIClient;
 import com.example.bookstore.network.models.Book;
 import com.example.bookstore.network.services.APIService;
+import com.example.bookstore.uitl.OnclickItem;
 import com.example.bookstore.view.home.Books.BookTypes;
 import com.example.bookstore.view.home.Books.BooksAdapter;
 
@@ -28,11 +33,13 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class featuredFragment extends Fragment {
+public class featuredFragment extends Fragment implements OnclickItem {
 
     private RecyclerView recyclerView;
     private APIService apiService;
     private BooksAdapter  booksAdapter;
+    private NavController navController;
+    List<Book>books;
 
     public featuredFragment() {
         // Required empty public constructor
@@ -50,6 +57,13 @@ public class featuredFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController= Navigation.findNavController(view);
+
+    }
+
     private void initUI(View view){
         recyclerView=view.findViewById(R.id.recyclerView);
     }
@@ -59,7 +73,8 @@ public class featuredFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
                 if (response.isSuccessful()) {
-                    setupBooks(response.body());
+                    books=response.body();
+                    setupBooks();
                 }
 
             }
@@ -71,9 +86,9 @@ public class featuredFragment extends Fragment {
         });
 
     }
-    private void setupBooks(List<Book> book)
+    private void setupBooks()
     {
-        booksAdapter=new BooksAdapter(book, BookTypes.Featured);
+        booksAdapter=new BooksAdapter(books, BookTypes.Featured,this);
 
         LinearLayoutManager linearLayout=new LinearLayoutManager(Objects.requireNonNull(getActivity())
                 .getApplicationContext(),
@@ -82,6 +97,14 @@ public class featuredFragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayout);
         recyclerView.setAdapter(booksAdapter);
+
+    }
+
+    @Override
+    public void OnClicked(int position) {
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("Book",books.get(position));
+        navController.navigate(R.id.action_featuredFragment_to_booksDetailsFragment,bundle);
 
     }
 }

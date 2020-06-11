@@ -1,10 +1,10 @@
 package com.example.bookstore.view.home;
 
+import android.app.Fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +20,7 @@ import com.example.bookstore.R;
 import com.example.bookstore.network.api.APIClient;
 import com.example.bookstore.network.models.Book;
 import com.example.bookstore.network.services.APIService;
+import com.example.bookstore.uitl.OnclickItem;
 import com.example.bookstore.view.home.Books.BookTypes;
 import com.example.bookstore.view.home.Books.BooksAdapter;
 import com.example.bookstore.view.home.slider.sliderAdapter;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class homeFragment extends Fragment implements View.OnClickListener {
+public class homeFragment extends Fragment implements View.OnClickListener, OnclickItem {
 
     private RecyclerView recyclerViewSlider;
     private RecyclerView recyclerViewBooks;
@@ -43,6 +44,8 @@ public class homeFragment extends Fragment implements View.OnClickListener {
     private BooksAdapter  booksAdapter;
     private Button btnSeeAll;
     private NavController navController;
+    private NavController controller;
+    private List<Book>books;
 
     public homeFragment() {
         // Required empty public constructor
@@ -65,6 +68,7 @@ public class homeFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        controller =Navigation.findNavController(view);
     }
 
     private void initUI(View view)
@@ -112,7 +116,8 @@ public class homeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
                 if (response.isSuccessful()) {
-                    setupBooks(response.body());
+                    books=response.body();
+                    setupBooks();
                 }
 
             }
@@ -124,9 +129,9 @@ public class homeFragment extends Fragment implements View.OnClickListener {
         });
 
     }
-    private void setupBooks(List<Book> book)
+    private void setupBooks()
     {
-        booksAdapter=new BooksAdapter(book, BookTypes.Home);
+        booksAdapter=new BooksAdapter(books, BookTypes.Home,this);
         LinearLayoutManager linearLayout=new LinearLayoutManager(Objects.requireNonNull(getActivity())
                 .getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL
@@ -146,5 +151,13 @@ public class homeFragment extends Fragment implements View.OnClickListener {
                 navController.navigate(R.id.action_homeFragment_to_featuredFragment);
                 break;
         }
+    }
+
+    @Override
+    public void OnClicked(int position) {
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("Book",books.get(position));
+        controller.navigate(R.id.action_homeFragment_to_booksDetailsFragment,bundle);
+
     }
 }

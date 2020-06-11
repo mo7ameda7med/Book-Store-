@@ -9,16 +9,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookstore.R;
 import com.example.bookstore.network.models.Book;
+import com.example.bookstore.uitl.OnclickItem;
 
 import java.util.List;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksHolder> {
     private List<Book>books;
     public BookTypes bookTypes;
+    private OnclickItem onclickItem;
 
-    public BooksAdapter(List<Book> books, BookTypes bookTypes) {
+    public BooksAdapter(List<Book> books, BookTypes bookTypes, OnclickItem onclickItem) {
         this.books = books;
         this.bookTypes = bookTypes;
+        this.onclickItem = onclickItem;
     }
 
     @NonNull
@@ -41,11 +44,20 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BooksHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BooksHolder holder, final int position) {
         Book book=books.get(position);
         holder.BindV(book);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onclickItem.OnClicked(position);
+            }
+        });
     }
+
+
+
 
     @Override
     public int getItemCount() {
